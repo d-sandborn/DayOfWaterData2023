@@ -6,7 +6,7 @@
 
 *Created by Daniel E. Sandborn, [Large Lakes Observatory](https://scse.d.umn.edu/large-lakes-observatory), University of Minnesota Duluth*
 
-> This matrial accompanies a talk delivered by the author at the UMN Day of Data event in January 2023.  It relies on Python code to analyze data and create visualizations. To run the code detailed below, you have at least two options: 
+> This material accompanies a talk delivered by the author at the UMN Day of Data event in January 2023.  It relies on Python code to analyze data and create visualizations. To run the code detailed below, you have at least two options: 
 > 1. Cut-and-paste code snippets into a Python terminal of choice.  This may take the form of Spyder, Jupyter, IDLE, etc. 
 > 2. Download and run the Jupyter Notebook available on github [here](https://github.com/d-sandborn/DayOfWaterData2023#introduction-to-lake-and-ocean-observation-systems).
 > Note that you'll need the accessory datafiles, which are available on github [here](https://github.com/d-sandborn/DayOfWaterData2023#introduction-to-lake-and-ocean-observation-systems).
@@ -227,13 +227,13 @@ There are many other variables in the provided EPA dataset.  Consider plotting t
 
 Now we move to the third data source, and my personal favorite, underway instrumentation.  We've seen the utility of high-frequency, autonomous, but spatially-limited moorings.  We've demonstrated the flexibility and long-term potential of repeat hydrography transects, despite their high cost in labor an dmaterials.  Now we consider underway instrumentation.  
 
-These instruments operate on a vessel autonomously, measuring properties of water wherever the ship happens to travel.  These systems are installed on research vessels like UMD's Blue Heron, as well as "ships of opportunity" like ferries servicing Isle Royale and the Alaska Marine Highway.  Research vessels typically post their underway data to R2R (Rolling Deck to Repository).  I'm going to run a demonstration using data from the R/V Blue Heron, which recently installed a new instrument (SuperCO2, Sunburst Sensors) measuring CO~2~ in water.  
+These instruments operate on a vessel autonomously, measuring properties of water wherever the ship happens to travel.  These systems are installed on research vessels like UMD's Blue Heron, as well as "ships of opportunity" like ferries servicing Isle Royale and the Alaska Marine Highway.  Research vessels typically post their underway data to R2R (Rolling Deck to Repository).  I'm going to run a demonstration using data from the R/V Blue Heron, which recently installed a new instrument (SuperCO2, Sunburst Sensors) measuring CO<sub>2</sub> in water.  
 
 This greenhouse gas is produced by fossil fuel emissions, and its distribution in water is influenced by temperature, pressue, salinity, photosynthesis, respiration, ice cover, and a host of other factors varying in space and time.  This variability (which is enhanced in inland waters relative to the global ocean) necessitates observations that span space (like repeat hydrography transects) and time (like moorings); enter underway data.
 
 ![A screenshot of the Rolling Deck to Repository page for the R/V Blue Heron, with cruise tracks shown for the upper three Laurentian Great Lakes.](R2R.JPG "A screenshot of the Rolling Deck to Repository page for the R/V Blue Heron, with cruise tracks shown for the upper three Laurentian Great Lakes.")
 
-The heron has visited the upper four Great Lakes since its CO~2~ sensors were installed in 2019.  The resulting millions of measurements of CO~2~ (along with water physical properties) cover Lake Superior most densely, so we'll restrict our attention there, focusing on a dataset I've assembled and sumarized from several hundred publically-available cruise files.
+The heron has visited the upper four Great Lakes since its CO<sub>2</sub> sensors were installed in 2019.  The resulting millions of measurements of CO<sub>2</sub> (along with water physical properties) cover Lake Superior most densely, so we'll restrict our attention there, focusing on a dataset I've assembled and sumarized from several hundred publically-available cruise files.
 
 The surface water temperature in Lake Superior is plotted below.  Clearly, SST varies considerably both spatially (within-cruise), seasonally (along the x-axis) and interanually (denoted by color).  This comes as no surprise to astute weather observers: the winter of '21-'22 was particularly cold, so 2022 water temperatures were depressed until later into the summer.  
 
@@ -259,9 +259,9 @@ ax.set_xlabel('Day of Year')
 ax.set_title('USEPA Great Lakes Water Quality Monitoring Project')
 plt.legend()
 ```
-This affects more than just surfing and shipping conditions (each of which, of course, are highly important in Duluth!)  Cold water absorbs more CO~2~ than warm water.  It's reasonable to hypothesize that there could be differences in how Lake Superior 'breathes' CO~2~ among years.
+This affects more than just surfing and shipping conditions (each of which, of course, are highly important in Duluth!)  Cold water absorbs more CO<sub>2</sub> than warm water.  It's reasonable to hypothesize that there could be differences in how Lake Superior 'breathes' CO<sub>2</sub> among years.
 
-A plot of CO~2~ measurements (normalized by area to avoid biasing the dataset if the vessel idles in place) displays a sinusoidal shape, at times containing more CO~2~ than the air (as if exhaling) or else containing less than the air (as if inhaling).  
+A plot of CO<sub>2</sub> measurements (normalized by area to avoid biasing the dataset if the vessel idles in place) displays a sinusoidal shape, at times containing more CO<sub>2</sub> than the air (as if exhaling) or else containing less than the air (as if inhaling).  
 
 Now we separate the sinusoidal regression of 2022 from the others.  It appears to be phase shifted later in the year, in line with our observation of a later spring in 2022! The amplitude of the 2022 curve is also smaller (shallow breaths?). 
 
@@ -326,8 +326,8 @@ Please contact me with any questions.  I'd love to hear comments, suggestions, p
 [^3]: Austin, J., and S. Colman. 2008. A century of temperature variability in Lake Superior. Limnol. Oceanogr. 53: 2724–2730. doi:10.4319/lo.2008.53.6.2724
 [^4]: Chapra, S. C., A. Dove, and G. J. Warren. 2012. Long-term trends of Great Lakes major ion chemistry. Journal of Great Lakes Research 38: 550–560. doi:10.1016/j.jglr.2012.06.010
 [^5]: Sterner, R. W., K. L. Reinl, B. M. Lafrancois, S. Brovold, and T. R. Miller. 2020. A first assessment of cyanobacterial blooms in oligotrophic Lake Superior. Limnol Oceanogr 65: 2984–2998. doi:10.1002/lno.11569
-[^6]: Sandborn, D. E., and E. C. Minor. 2022. CO~2~ Acidification in Lake Superior: Developing a Chemical Forecast. Poster Presentation.  Joint Aquatic Sciences Meeting, Grand Rapids, MI, USA.
-[^7]: Phillips, J., G. McKinley, V. Bennington, H. Bootsma, D. Pilcher, R. Sterner, and N. Urban. 2015. The Potential for CO~2~-Induced Acidification in Freshwater: A Great Lakes Case Study. oceanog 25: 136–145. doi:10.5670/oceanog.2015.37
+[^6]: Sandborn, D. E., and E. C. Minor. 2022. CO<sub>2</sub> Acidification in Lake Superior: Developing a Chemical Forecast. Poster Presentation.  Joint Aquatic Sciences Meeting, Grand Rapids, MI, USA.
+[^7]: Phillips, J., G. McKinley, V. Bennington, H. Bootsma, D. Pilcher, R. Sterner, and N. Urban. 2015. The Potential for CO<sub>2</sub>-Induced Acidification in Freshwater: A Great Lakes Case Study. oceanog 25: 136–145. doi:10.5670/oceanog.2015.37
 [^8]: Ozersky, T., A. J. Bramburger, A. K. Elgin, and others. 2021. The Changing Face of Winter: Lessons and Questions From the Laurentian Great Lakes. J Geophys Res Biogeosci 126. doi:10.1029/2021JG006247
 
 
