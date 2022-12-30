@@ -1,12 +1,15 @@
 # Day of *Water* Data 2023
 
+# WORK IN PROGRESS | NOT FOR DISTRIBUTION
+
 *Resources for participants in the University of Minnesota Day of Data 2023.*
 
-*Created by Daniel E. Sandborn, Large Lakes Observatory, University of Minnesota Duluth*
+*Created by Daniel E. Sandborn, [Large Lakes Observatory](https://scse.d.umn.edu/large-lakes-observatory), University of Minnesota Duluth*
 
 > This matrial accompanies a talk delivered by the author at the UMN Day of Data event in January 2023.  It relies on Python code to analyze data and create visualizations. To run the code detailed below, you have at least two options: 
 > 1. Cut-and-paste code snippets into a Python terminal of choice.  This may take the form of Spyder, Jupyter, IDLE, etc. 
-> 2. Download and run the Jupyter Notebook available (here)[link].
+> 2. Download and run the Jupyter Notebook available on github [here](https://github.com/d-sandborn/DayOfWaterData2023#introduction-to-lake-and-ocean-observation-systems).
+> Note that you'll need the accessory datafiles, which are available on github [here](https://github.com/d-sandborn/DayOfWaterData2023#introduction-to-lake-and-ocean-observation-systems).
 > If you aren't familiar with Python code, don't worry! This material is designed to be accessible regardless of data science experience.
 
 ```python
@@ -27,9 +30,9 @@ from scipy import optimize  # curve-fitting toolkit
 
 Observers of lakes and oceans have a choice of many instruments and strategies, including moored instruments (buoys), research cruises, drifting buoys, autonomous profilers, and more.  Water body phenomena exist on various scales, with temporal variability between seconds and millennia, and spatial variability between millimeters and thousands of kilometers.  
 
-To observe a process, you have to match your observation strategy to phenomena of interest. It's no use trying to study global thermohaline ocean circulation with a single buoy, nor in studying climate change with short-term observations.
+To observe a process, you have to match your observation strategy to phenomena of interest. It's no use trying to study global thermohaline ocean circulation with a single buoy, nor in studying climate change with short-term observations. (Bushinsky et al. 2019[^1])
 
-![Observation Variability Plot, Bushinsky et al. 2019[^1]](ObsVarPlot.JPG "Observation Variability Plot, Bushinsky et al. 2019")
+![Observation Variability Plot, Bushinsky et al. 2019](ObsVarPlot.JPG "Observation Variability Plot, Bushinsky et al. 2019")
 
 Plotting spatial variability on one axis and temporal variability on the other illustrates the overlap among various ocean phenomena and observation techniques.  These overlaps are the zones we target with our instruments.
 
@@ -93,29 +96,37 @@ e.constraints = { #narrow it down to the 2022 field season
     "time<=": "2022-10-7T00:00:00Z",
 }
 
-
 df = e.to_pandas( #download the data into a Pandas dataframe
     #index_col="time (UTC)",
     parse_dates=["time (UTC)"], #define this column as a datetime object
 ).dropna()
+df.time = df.loc[:, "time (UTC)"]
 
+# I use matplotlib for creating graphs here, but many others are available that with a higher-level (and more concise) syntax.
+
+fig, ax = plt.subplots()
+ax.plot(df.time, df.loc[:, "wtmp1 (K)"])
+ax2 = ax.twinx()
+mn, mx = ax.get_ylim()
+#ax2.set_ylim(mn-273.15, mx-273.15)
+ax2.set_ylabel('Water Temperature (°C)')
+ax.set_xlabel('Date')
+ax.set_ylabel('Water Temperature (K)')
+ax.set_title('Water Temperature Near McQuade Harbor')
+ax.tick_params(axis='x', labelrotation=45)
 ```
+
 After downloading data from the Great Lakes Observing System via ERDDAP for summer 2022 (the mooring was retrieved in October before wave and ice action destroyed it), an anomaly is evident in the temperature timeseries: many readings of -9999 K. Clearly this is an instrumental error, denoting a voltage out-of-range.  These are easily removed.
-
-Gaps are also evident in the timeseries, sometimes lasting days.  Transmission (via a cellular network in this case) can be interrupted or disabled by any number of hardware or software issues.  The last constraint has already been hinted at: moorings are typically retrieved before winter arrives, with its high seas and crushing ice floes.  This gap in observations is a significant obstacle to understanding lake and ocean biogeochemistry.
-
-Now we can talk about surfing.  Strong winds from the northeast are common on Lake Superior in the Fall thru Spring.  Over exceedingly long stretches of open water (e.g. over the ocean, or the line from the North Shore to the Slate Islands) the *fetch* of this wind can create surfable waves.  Surfers know to check a series of moorings stretching from Isle Royale down to Duluth to predict wave intensity days to hours in advance.
 
 ```python
 datacolumns = ['wtmp1 (K)', 'wtmp3 (K)', 'wtmp8 (K)', 'wtmp13 (K)',
                'wtmp18 (K)', 'wtmp23 (K)', 'wtmp28 (K)', 'wtmp33 (K)', 'wtmp38 (K)',
-               'wtmp43 (K)']
+               'wtmp43 (K)'] #create a list of our variables for use in the for loop below
 
 for i in df.index: #for each row
     for j in datacolumns: #for each column in each row
         if df.loc[i, j] < 0: #if the temperature value is less than 0:
             df.loc[i, j] = np.nan #nix it and replace with a "not a number" value
-df.time = df.loc[:, "time (UTC)"]
 
 colors = iter([plt.cm.inferno(i) for i in np.linspace(0, 1, 11)]) #prepare an iterator of colors to apply to each line
 
@@ -140,16 +151,26 @@ ax.set_title('Water Temperature Near McQuade Harbor')
 ax.tick_params(axis='x', labelrotation=45)
 fig.legend(bbox_to_anchor=(1, 0.5), loc="center left")
 ```
+
+Gaps are also evident in the timeseries, sometimes lasting days.  Transmission (via a cellular network in this case) can be interrupted or disabled by any number of hardware or software issues.  
+
+The last constraint has already been hinted at: moorings are typically retrieved before winter arrives, with its high seas and crushing ice floes.  Gaps in observations can be significant obstacles to understanding lake and ocean biogeochemistry, such that winter limnology is an active field of research.[^8]
+
+Now we can talk about surfing.  Strong winds from the northeast are common on Lake Superior in the Fall thru Spring.  Over exceedingly long stretches of open water (e.g. over the ocean, or the line from the North Shore to the Slate Islands) the *fetch* of this wind can create surfable waves.  Surfers know to check a series of moorings stretching from Isle Royale down to Duluth to predict wave intensity days to hours in advance.
+
+TO ADD: WAVE STUFF
+
 ## Repeat Hydrography
 
 There are some categories of data that moorings still can't collect.  Many chemical and biological parameters require analytical techniques that are challenging to automate or else require reagents and supplies that can't be supplied and disposed of in a remote location.  In these cases, research vessels are utilized to travel to *stations* where water or other samples are retrieved and analyzed by scientists.  Repetition of this process at regular intervals over years or decades constitutes a *repeat hydrography* campaign.  
 
 The EPA Great Lakes National Program Office has produced such a dataset since the mid 1980s.  This set of chemical and biological measurements of discrete water samples at several dozen stations at various depths throughout the Great Lakes is among the most valuable long-term biogeochemical datasets available for the Great Lakes.  Its primary strength is its consistency: each years' data is comprable to all others thanks to rigourous standard operating procedures and QA/QC.  
 
-I've downloaded a summary of the particulate matter analyses through my account on the EPA GLENDA portal.  We'll analyze it below.
+I've downloaded a summary of the particulate matter analyses through an account on the [EPA GLENDA](https://exchangenetwork.net/data-exchange/glenda/) portal.  We'll analyze it below, beginning with a mapping exercise.
 
 ```python
 #grab shapefiles for mapping and convert them all to the same coordinate system
+#these are available for just about any geographic object desired with a quick web search
 michigan = gp.read_file('hydro_p_LakeMichigan.shp').to_crs("EPSG:4326") 
 superior = gp.read_file('hydro_p_LakeSuperior.shp').to_crs("EPSG:4326")
 erie = gp.read_file('hydro_p_LakeErie.shp').to_crs("EPSG:4326")
@@ -171,9 +192,9 @@ ax.set_ylim([41.5, 49])
 ax.set_xlim([-92.1, -76])
 ax.set_title('USEPA Great Lakes Water Quality Monitoring Project Sites')
 ```
-The great spatial scope is evident in this map of the Great Lakes.  Each station is represented as a cluster of observations.  Consider: can the biogeochemistry of Lake Superior be comprehensively understood by measurements at merely three stations far from shore?  These measurements are collected only twice annually, which limits their observational scope to some seasonal and interannual variability.  The comprehensive spatial scope, however, helps highlight interesting spatial variability that may be missed by fixed observational systems like buoys and coastal timeseries. 
+The great spatial scope of the EPA dataset is evident in this map of the Great Lakes.  Each station is represented as a cluster of observations.  Consider: can the biogeochemistry of such a large lake as Superior be comprehensively understood by measurements at merely three stations far from shore?  
 
-Next we compare Particulate Organic Carbon concentrations among various stations with a box-and-whisker plot. How much variability is there among lakes?  Within lakes?  Why do some lakes contain more Particulate Organic Carbon than others? 
+These measurements are collected only twice annually, which limits their observational scope to some seasonal and interannual variability.  The comprehensive spatial scope, however, helps highlight interesting spatial variability that may be missed by fixed observational systems like buoys and coastal timeseries. Next we compare Particulate Organic Carbon concentrations among various stations with a box-and-whisker plot. How much variability is there among lakes?  Within lakes?  Why do some lakes contain more Particulate Organic Carbon than others? 
 
 ```python
 df_bwp = df.pivot_table(index='YEAR', columns='STATION',
@@ -238,7 +259,7 @@ ax.set_xlabel('Day of Year')
 ax.set_title('USEPA Great Lakes Water Quality Monitoring Project')
 plt.legend()
 ```
-This affects more than just surfing and shipping conditions (each of which, of course, are highly important in Duluth!)  Cold water absorbs more CO~2~ than warm water.  It's reasonable to hypothesize that there could be differences in how Lake Superior 'breathes' CO~2~.
+This affects more than just surfing and shipping conditions (each of which, of course, are highly important in Duluth!)  Cold water absorbs more CO~2~ than warm water.  It's reasonable to hypothesize that there could be differences in how Lake Superior 'breathes' CO~2~ among years.
 
 A plot of CO~2~ measurements (normalized by area to avoid biasing the dataset if the vessel idles in place) displays a sinusoidal shape, at times containing more CO~2~ than the air (as if exhaling) or else containing less than the air (as if inhaling).  
 
@@ -293,6 +314,12 @@ ax.set_title('R/V Blue Heron Underway 19-22, Superior Deep Open Water')
 plt.legend()
 ```
 
+## Wrap-up
+
+I hope this information has been interesting and useful!  While far from a comprehensive treatment of data access and analysis techniques, the examples provided here has the potential to inspire readers, advance data science skills, and increase engagement with the science of our most valuable material resource: water!
+
+Please contact me with any questions.  I'd love to hear comments, suggestions, project ideas, etc. *sandb425@umn.edu*
+
 ## References
 [^1]: Bushinsky, S. M., Y. Takeshita, and N. L. Williams. 2019. Observing Changes in Ocean Carbonate Chemistry: Our Autonomous Future. Curr Clim Change Rep 5: 207–220. doi:10.1007/s40641-019-00129-8
 [^2]: "The Great Lakes". USEPA. Accessed December 20 2022. [www.epa.gov/greatlakes](https://www.epa.gov/greatlakes)
@@ -301,7 +328,8 @@ plt.legend()
 [^5]: Sterner, R. W., K. L. Reinl, B. M. Lafrancois, S. Brovold, and T. R. Miller. 2020. A first assessment of cyanobacterial blooms in oligotrophic Lake Superior. Limnol Oceanogr 65: 2984–2998. doi:10.1002/lno.11569
 [^6]: Sandborn, D. E., and E. C. Minor. 2022. CO~2~ Acidification in Lake Superior: Developing a Chemical Forecast. Poster Presentation.  Joint Aquatic Sciences Meeting, Grand Rapids, MI, USA.
 [^7]: Phillips, J., G. McKinley, V. Bennington, H. Bootsma, D. Pilcher, R. Sterner, and N. Urban. 2015. The Potential for CO~2~-Induced Acidification in Freshwater: A Great Lakes Case Study. oceanog 25: 136–145. doi:10.5670/oceanog.2015.37
-[^8]:
+[^8]: Ozersky, T., A. J. Bramburger, A. K. Elgin, and others. 2021. The Changing Face of Winter: Lessons and Questions From the Laurentian Great Lakes. J Geophys Res Biogeosci 126. doi:10.1029/2021JG006247
+
 
 
 
