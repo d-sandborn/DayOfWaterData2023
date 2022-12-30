@@ -29,3 +29,29 @@ ax.imshow(varplot)
 plt.axis('off')
 
 ```
+![Observation Variability Plot, Bushinsky et al. 2019](ObsVarPlot.jpg "Observation Variability Plot, Bushinsky et al. 2019")
+
+Plotting spatial variability on one axis and temporal variability on 
+the other illustrates the overlap among various ocean phenomena and observation techniques.  
+
+##Climate, Weather, and the Laurentian Great Lakes
+
+The Laurentian Great Lakes contain ##% of the Earth's surface freshwater despite 
+occupying only ##% of the Earth's surface.  
+
+They influence regional climate and weather over a large portion of North America, as 
+evidenced by, for example, cooler temperatures near the lakes in summer, and 
+lake effect snowfall in early winter.  
+
+Recent research has highlighted the ways in which we are modifying the physical, 
+chemical, and biological states of the Great Lakes.  
+
+**Our lakes are getting warmer** (Austin and Coleman, 2008)
+
+**Our lakes are experiencing unprecedented harmful algal blooms** (Sterner et al. 2020)
+
+**Our lakes (especially the more poorly-buffered lakes like Superior) may be acidifying** (Sandborn and Minor, 2022; after Phillips et al. 2015)
+
+This research, as well as management and policy decisions that can help mitigate
+harmful changes, rely upon observations spanning minutes to centuries, and creeks 
+to continents. 
