@@ -9,7 +9,9 @@
 > This material accompanies a talk delivered by the author at the UMN Day of Data event in January 2023.  It relies on Python code to analyze data and create visualizations. To run the code detailed below, you have at least two options: 
 > 1. Cut-and-paste code snippets into a Python terminal of choice.  This may take the form of Spyder, Jupyter, IDLE, etc. 
 > 2. Download and run the Jupyter Notebook available on github [here](https://github.com/d-sandborn/DayOfWaterData2023#introduction-to-lake-and-ocean-observation-systems).
+
 > Note that you'll need the accessory datafiles, which are available on github [here](https://github.com/d-sandborn/DayOfWaterData2023#introduction-to-lake-and-ocean-observation-systems).
+
 > If you aren't familiar with Python code, don't worry! This material is designed to be accessible regardless of data science experience.
 
 ```python
