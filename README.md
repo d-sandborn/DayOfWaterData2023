@@ -158,9 +158,73 @@ Gaps are also evident in the timeseries, sometimes lasting days.  Transmission (
 
 The last constraint has already been hinted at: moorings are typically retrieved before winter arrives, with its high seas and crushing ice floes.  Gaps in observations can be significant obstacles to understanding lake and ocean biogeochemistry, such that winter limnology is an active field of research.[^8]
 
-Now we can talk about surfing.  Strong winds from the northeast are common on Lake Superior in the Fall thru Spring.  Over exceedingly long stretches of open water (e.g. over the ocean, or the line from the North Shore to the Slate Islands) the *fetch* of this wind can create surfable waves.  Surfers know to check a series of moorings stretching from Isle Royale down to Duluth to predict wave intensity days to hours in advance.
+Now we can talk about surfing.  Strong winds from the northeast are common on Lake Superior in the Fall thru Spring.  Over exceedingly long stretches of open water (e.g. over the ocean, or the line from the North Shore to the Slate Islands) the *fetch* of this wind can create surfable waves.  Surfers know to check a series of moorings stretching from Isle Royale down to Duluth to predict wave intensity days to hours in advance. Can we visualize the connection between wave height and its hypothesized driver variables?
 
-TO ADD: WAVE STUFF
+Let's start with a simple timeseries of wave height, measured at the same mooring as above.
+
+```python
+e = ERDDAP(
+    server="https://seagull-erddap.glos.org/erddap",
+    protocol="tabledap",
+    response="csv",
+)
+
+e.dataset_id = "obs_45"
+
+e.variables = [
+    "time",
+    "wvhgt",
+    "wspd1",
+    "wdir1"
+]
+
+e.constraints = {
+    "time>=": "2022-05-23T00:00:00Z",
+    "time<=": "2022-10-7T00:00:00Z",
+}
+
+df = e.to_pandas(parse_dates=["time (UTC)"]).dropna()
+df.time = df.loc[:, "time (UTC)"]
+
+datacolumns = ['wvhgt (m)', 'wspd1 (m s-1)', 'wdir1 (degree)']
+
+for i in df.index:
+    for j in datacolumns:
+        if df.loc[i, j] < 0:
+            df.loc[i, j] = np.nan
+
+fig, ax = plt.subplots(figsize = (10,3))
+ax.plot(df.time, df.loc[:, "wvhgt (m)"], c='blue')
+ax.set_xlabel('Date')
+ax.set_ylabel('Wave Height (m)')
+ax.set_title('Wave Heights Near McQuade Harbor')
+ax.tick_params(axis='x', labelrotation=45)
+```
+
+It appears that the wave height never exceeds about 1.75 meters during the period of observation.  Note, however, that this excludes the very early and late surfing seaon (including the storied "Gales of November").  We've also downloaded windspeed and wind direction.  Let's see how wave height responds to each.  
+
+```python
+fig, ax = plt.subplots()
+ax.scatter(df.loc[:, "wspd1 (m s-1)"], df.loc[:, "wvhgt (m)"], c='blue', s = 0.3, alpha = 0.5)
+ax.set_xlabel('Wind Speed m/s')
+ax.set_ylabel('Wave Height (m)')
+ax.set_title('Wave Height vs. Wind Speed')
+```
+
+A scatterplot indicates a positive relationship between wave height and windspeed, but a relatively large amount of scatter is evident, especially at high windspeeds.  Other drivers are probably at work.  Let's visualize the influence of wind direction.
+
+```python
+fig, ax = plt.subplots(subplot_kw={'projection': 'polar'})
+ax.scatter(df.loc[:, "wdir1 (degree)"]/360*2*np.pi, df.loc[:, "wvhgt (m)"], c='blue', s = 0.2, alpha = 0.5)
+ax.set_theta_zero_location('N')
+ax.set_theta_direction(-1)
+ax.set_rlabel_position(180)
+ax.set_xticklabels(['N', 'NE', 'W', 'SW', 'S', 'SE', 'E', 'NE'])
+ax.set_yticklabels(['', '', 'MEH', 'OKAY', 'GNARLY', 'RADICAL', 'SURF\'S UP!'])
+ax.set_title('Wave Height vs. Wind Direction (from)')
+```
+
+As expected, the largest waves are associated with winds from the northeast, which have the most fetch over Lake Superior.  We now have two probable driver variables, but how much of the variability in wave height do windspeed and wind direction determine?  Several different regression analyses could be deployed to quantify this as, e.g. an R-squared value.  Keep in mind the potential difficulties associated with a polar variable (direction)!
 
 ## Repeat Hydrography
 
