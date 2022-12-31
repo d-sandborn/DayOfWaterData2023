@@ -34,7 +34,7 @@ Observers of lakes and oceans have a choice of many instruments and strategies, 
 
 To observe a process, you have to match your observation strategy to phenomena of interest. It's no use trying to study global thermohaline ocean circulation with a single buoy, nor in studying climate change with short-term observations. (Bushinsky et al. 2019[^1])
 
-![Observation Variability Plot, Bushinsky et al. 2019](ObsVarPlot.JPG "Observation Variability Plot, Bushinsky et al. 2019")
+![Observation Variability Plot, Bushinsky et al. 2019](./Images/ObsVarPlot.JPG "Observation Variability Plot, Bushinsky et al. 2019")
 
 Plotting spatial variability on one axis and temporal variability on the other illustrates the overlap among various ocean phenomena and observation techniques.  These overlaps are the zones we target with our instruments.
 
@@ -200,6 +200,7 @@ ax.set_ylabel('Wave Height (m)')
 ax.set_title('Wave Heights Near McQuade Harbor')
 ax.tick_params(axis='x', labelrotation=45)
 ```
+![Wave Height Timeseries, McQuade Offshore Mooring](./Images/WaveHeightTimeseries.png "Wave Height Timeseries, McQuade Offshore Mooring")
 
 It appears that the wave height never exceeds about 1.75 meters during the period of observation.  Note, however, that this excludes the very early and late surfing seaon (including the storied "Gales of November").  We've also downloaded windspeed and wind direction.  Let's see how wave height responds to each.  
 
@@ -210,6 +211,7 @@ ax.set_xlabel('Wind Speed m/s')
 ax.set_ylabel('Wave Height (m)')
 ax.set_title('Wave Height vs. Wind Speed')
 ```
+![Wave Height at McQuade Offshore Mooring vs. Wind Speed](./Images/WaveHeightvsWindSpeed.png "Wave Height at McQuade Offshore Mooring vs. Wind Speed")
 
 A scatterplot indicates a positive relationship between wave height and windspeed, but a relatively large amount of scatter is evident, especially at high windspeeds.  Other drivers are probably at work.  Let's visualize the influence of wind direction.
 
@@ -223,6 +225,8 @@ ax.set_xticklabels(['N', 'NE', 'W', 'SW', 'S', 'SE', 'E', 'NE'])
 ax.set_yticklabels(['', '', 'MEH', 'OKAY', 'GNARLY', 'RADICAL', 'SURF\'S UP!'])
 ax.set_title('Wave Height vs. Wind Direction (from)')
 ```
+![Wave Height at McQuade Offshore Mooring vs. Wind Direction](./Images/WaveHeightvsWindDir.png "Wave Height at McQuade Offshore Mooring vs. Wind Direction")
+
 As expected, the largest waves are associated with winds from the northeast, which have the most fetch over Lake Superior.  We now have two probable driver variables, but how much of the variability in wave height do windspeed and wind direction determine?  Several different regression analyses could be deployed to quantify this as, e.g. an R-squared value.  Keep in mind the potential complications of regression against a polar variable (direction); we'll give an example of this later.  
 
 ## Repeat Hydrography
