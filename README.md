@@ -117,6 +117,7 @@ ax.set_ylabel('Water Temperature (K)')
 ax.set_title('Water Temperature Near McQuade Harbor')
 ax.tick_params(axis='x', labelrotation=45)
 ```
+![Water Temperatures, McQuade Offshore Mooring, with errors](WaterTempErrors.png "Water Temperatures, McQuade Offshore Mooring, with errors")
 
 After downloading data from the Great Lakes Observing System via ERDDAP for summer 2022 (the mooring was retrieved in October before wave and ice action destroyed it), an anomaly is evident in the temperature timeseries: many readings of -9999 K. Clearly this is an instrumental error, denoting a voltage out-of-range.  These are easily removed.
 
@@ -153,10 +154,11 @@ ax.set_title('Water Temperature Near McQuade Harbor')
 ax.tick_params(axis='x', labelrotation=45)
 fig.legend(bbox_to_anchor=(1, 0.5), loc="center left")
 ```
+![Water Temperatures, McQuade Offshore Mooring,](WaterTemp.png "Water Temperatures, McQuade Offshore Mooring")
 
-Gaps are also evident in the timeseries, sometimes lasting days.  Transmission (via a cellular network in this case) can be interrupted or disabled by any number of hardware or software issues.  
+The timeseries with errors removed displays the expected seasonal trend: surface temperatures increase through the summer before decreasing in fall.  Spring destratification is also evident near June: at this point the entire water column is the same temperature (and therefore density), such that even a light breeze can circulate water throughout the lake.  Later on, surface waters are significantly warmer (and therefore less dense) which limits exchange of water, matter, and energy betwen the surface and deep water.  
 
-The last constraint has already been hinted at: moorings are typically retrieved before winter arrives, with its high seas and crushing ice floes.  Gaps in observations can be significant obstacles to understanding lake and ocean biogeochemistry, such that winter limnology is an active field of research.[^8]
+Gaps are also evident in the timeseries, sometimes lasting days.  Transmission (via a cellular network in this case) can be interrupted or disabled by any number of hardware or software issues.  One last constraint of moored observations has already been hinted at: moorings in the Great Lakes and high latitudes are typically retrieved before winter arrives, with its high seas and crushing ice floes.  Gaps in observations can be significant obstacles to understanding lake and ocean biogeochemistry, such that winter limnology is an active field of research.[^8]
 
 Now we can talk about surfing.  Strong winds from the northeast are common on Lake Superior in the Fall thru Spring.  Over exceedingly long stretches of open water (e.g. over the ocean, or the line from the North Shore to the Slate Islands) the *fetch* of this wind can create surfable waves.  Surfers know to check a series of moorings stretching from Isle Royale down to Duluth to predict wave intensity days to hours in advance. Can we visualize the connection between wave height and its hypothesized driver variables?
 
@@ -261,6 +263,8 @@ ax.set_ylim([41.5, 49])
 ax.set_xlim([-92.1, -76])
 ax.set_title('USEPA Great Lakes Water Quality Monitoring Project Sites')
 ```
+![Locations of USEPA Greast Lakes Water Quality Monitoring Project sampling sites.](GLENDALocations.png "Locations of USEPA Great Lakes Water Quality Monitoring Project sampling stations.")
+
 The great spatial scope of the EPA dataset is evident in this map of the Great Lakes.  Each station is represented as a cluster of observations.  Consider: can the biogeochemistry of such a large lake as Superior be comprehensively understood by measurements at merely three stations far from shore?  
 
 These measurements are collected only twice annually, which limits their observational scope to some seasonal and interannual variability.  The comprehensive spatial scope, however, helps highlight interesting spatial variability that may be missed by fixed observational systems like buoys and coastal timeseries. Next we compare Particulate Organic Carbon concentrations among various stations with a box-and-whisker plot. How much variability is there among lakes?  Within lakes?  Why do some lakes contain more Particulate Organic Carbon than others? 
@@ -274,6 +278,7 @@ ax.set_ylabel('POC (mg/L)')
 ax.set_xlabel('Station')
 plt.show()
 ```
+![Locations of USEPA Greast Lakes Water Quality Monitoring Project sampling sites.](GLENDABW.png "Comparison of POC at various USEPA Great Lakes Water Quality Monitoring Project stations.")
 
 We haven't examined how these values change over time.  For that, we'll use a timeseries plot.  Typically measurements are made in early spring (April-May) and late summer (July-August).  This explains the 'sharktooth' behavior in the timeseries, but it complicates interpretation of secular trends.  
 
@@ -289,6 +294,8 @@ ax.set_xlabel('Date')
 ax.set_title('USEPA Great Lakes Water Quality Monitoring Project')
 plt.legend()
 ```
+
+![Locations of USEPA Greast Lakes Water Quality Monitoring Project sampling sites.](GLENDATS.png "Timeseries of POC measurements at USEPA Great Lakes Water Quality Monitoring Project stations.")
 
 There are many other variables in the provided EPA dataset.  Consider plotting them up and seeing if trends can be demonstrated.
 
@@ -328,6 +335,8 @@ ax.set_xlabel('Day of Year')
 ax.set_title('USEPA Great Lakes Water Quality Monitoring Project')
 plt.legend()
 ```
+![Surface water temperatures measured by the R/V Blue Heron underway system on Lake Superior, 2019-2022](BHUWTemp.png "Surface wter temperatures measured by the R/V Blue Heron underway system on Lake Superior, 2019-2022.")
+
 This affects more than just surfing and shipping conditions (each of which, of course, are highly important in Duluth!)  Cold water absorbs more CO<sub>2</sub> than warm water.  It's reasonable to hypothesize that there could be differences in how Lake Superior 'breathes' CO<sub>2</sub> among years.
 
 A plot of CO<sub>2</sub> measurements (normalized by area to avoid biasing the dataset if the vessel idles in place) displays a sinusoidal shape, at times containing more CO<sub>2</sub> than the air (as if exhaling) or else containing less than the air (as if inhaling).  
@@ -382,10 +391,11 @@ ax.set_ylim([200, 600])
 ax.set_title('R/V Blue Heron Underway 19-22, Superior Deep Open Water')
 plt.legend()
 ```
+![Surface water carbon dioxide partial pressures measured by the R/V Blue Heron underway system on Lake Superior, 2019-2022](BHUWCO2.png "Surface water carbon dioxide partial pressures measured by the R/V Blue Heron underway system on Lake Superior, 2019-2022.")
 
 ## Wrap-up
 
-I hope this information has been interesting and useful!  While far from a comprehensive treatment of data access and analysis techniques, the examples provided here has the potential to inspire readers, advance data science skills, and increase engagement with the science of our most valuable material resource: water!
+I hope this information has been interesting and useful!  While far from a comprehensive treatment of data access and analysis techniques, the examples provided here has the potential to inspire readers, advance data science skills, and increase engagement with the science of one of humanity's most valuable resources: water!
 
 Please contact me with any questions.  I'd love to hear comments, suggestions, project ideas, etc. *sandb425@umn.edu*
 
