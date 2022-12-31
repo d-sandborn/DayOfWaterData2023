@@ -44,19 +44,19 @@ The Laurentian Great Lakes contain about 21% of the Earth's surface freshwater[^
 
 **Our lakes are getting warmer** (Austin and Coleman, 2008[^3])
 
-![Timeseries of Lake Superior mean summer surface water temperatures, from Austin and Coleman 2008.](SupTemp.JPG "Timeseries of Lake Superior mean summer surface water temperatures, from Austin and Coleman 2008.")
+![Timeseries of Lake Superior mean summer surface water temperatures, from Austin and Coleman 2008.](./Images/SupTemp.JPG "Timeseries of Lake Superior mean summer surface water temperatures, from Austin and Coleman 2008.")
 
 **Our lakes are getting saltier** (Chapra et al. 2012[^4])
 
-![Laurentian Great Lakes chloride and sodium ion concentrations, from Chapra et al. 2012.](ChapraNaCl.JPG "Laurentian Great Lakes chloride and sodium ion concentrations, from Chapra et al. 2012.")
+![Laurentian Great Lakes chloride and sodium ion concentrations, from Chapra et al. 2012.](./Images/ChapraNaCl.JPG "Laurentian Great Lakes chloride and sodium ion concentrations, from Chapra et al. 2012.")
 
 **Our lakes are experiencing unprecedented harmful algal blooms** (Sterner et al. 2020[^5])
 
-![Harmful algal bloom sighting and sampling, from Sterner et al. 2020.](Sterner2020.JPG "Harmful algal bloom sighting and sampling, from Sterner et al. 2020.")
+![Harmful algal bloom sighting and sampling, from Sterner et al. 2020.](./Images/Sterner2020.JPG "Harmful algal bloom sighting and sampling, from Sterner et al. 2020.")
 
 **Our lakes (especially poorly-buffered lakes like Superior) may be acidifying** (Sandborn and Minor, 2022[^6]; after Phillips et al. 2015[^7])
 
-![Forecasted Carbon Dioxide-driven acidification of Lake Superior, by Sandborn and Minor 2002 after Phillips et al. 2015.](SMafterPhillips.jpg "Forecasted Carbon Dioxide-driven acidification of Lake Superior, by Sandborn and Minor 2002 after Phillips et al. 2015.")
+![Forecasted Carbon Dioxide-driven acidification of Lake Superior, by Sandborn and Minor 2002 after Phillips et al. 2015.](./Images/SMafterPhillips.jpg "Forecasted Carbon Dioxide-driven acidification of Lake Superior, by Sandborn and Minor 2002 after Phillips et al. 2015.")
 
 This research, as well as management and policy decisions that can mitigate harmful changes, rely upon observation strategies spanning minutes to centuries, and creeks to continents. Below I briefly talk about three obsevational strategies used in the Laurentian Great Lakes to generate data that improves our understanding of these valuable and unique large lake ecosystems.
 
@@ -223,24 +223,24 @@ ax.set_xticklabels(['N', 'NE', 'W', 'SW', 'S', 'SE', 'E', 'NE'])
 ax.set_yticklabels(['', '', 'MEH', 'OKAY', 'GNARLY', 'RADICAL', 'SURF\'S UP!'])
 ax.set_title('Wave Height vs. Wind Direction (from)')
 ```
-As expected, the largest waves are associated with winds from the northeast, which have the most fetch over Lake Superior.  We now have two probable driver variables, but how much of the variability in wave height do windspeed and wind direction determine?  Several different regression analyses could be deployed to quantify this as, e.g. an R-squared value.  Keep in mind the potential difficulties associated with a polar variable (direction)!
+As expected, the largest waves are associated with winds from the northeast, which have the most fetch over Lake Superior.  We now have two probable driver variables, but how much of the variability in wave height do windspeed and wind direction determine?  Several different regression analyses could be deployed to quantify this as, e.g. an R-squared value.  Keep in mind the potential complications of regression against a polar variable (direction); we'll give an example of this later.  
 
 ## Repeat Hydrography
 
-There are some categories of data that moorings still can't collect.  Many chemical and biological parameters require analytical techniques that are challenging to automate or else require reagents and supplies that can't be supplied and disposed of in a remote location.  In these cases, research vessels are utilized to travel to *stations* where water or other samples are retrieved and analyzed by scientists.  Repetition of this process at regular intervals over years or decades constitutes a *repeat hydrography* campaign.  
+There are some categories of data aren't suitable for measurement by moorings.  Many chemical and biological parameters require analytical techniques that are challenging to automate or else require reagents and supplies that can't be supplied and disposed of in a remote location.  In these cases, research vessels are utilized to travel to stations where water or other samples are retrieved and analyzed by scientists.  Repetition of this process at regular intervals over years or decades constitutes a *repeat hydrography* campaign.  
 
-The EPA Great Lakes National Program Office has produced such a dataset since the mid 1980s.  This set of chemical and biological measurements of discrete water samples at several dozen stations at various depths throughout the Great Lakes is among the most valuable long-term biogeochemical datasets available for the Great Lakes.  Its primary strength is its consistency: each years' data is comprable to all others thanks to rigourous standard operating procedures and QA/QC.  
+The EPA Great Lakes National Program Office has produced such a dataset since the mid 1980s.  This set of chemical and biological measurements of discrete water samples at several dozen stations at various depths is among the most valuable long-term biogeochemical datasets available for the Great Lakes.  Its primary strength is its consistency: each years' data is comprable to all others thanks to standardized operating procedures and quality assurance/quality control (QA/QC).  
 
-I've downloaded a summary of the particulate matter analyses through an account on the [EPA GLENDA](https://exchangenetwork.net/data-exchange/glenda/) portal.  We'll analyze it below, beginning with a mapping exercise.
+I've downloaded a summary of particulate matter analyses through an account on the [EPA GLENDA](https://exchangenetwork.net/data-exchange/glenda/) portal.  We'll analyze it below, beginning with a mapping exercise.
 
 ```python
 #grab shapefiles for mapping and convert them all to the same coordinate system
 #these are available for just about any geographic object desired with a quick web search
-michigan = gp.read_file('hydro_p_LakeMichigan.shp').to_crs("EPSG:4326") 
-superior = gp.read_file('hydro_p_LakeSuperior.shp').to_crs("EPSG:4326")
-erie = gp.read_file('hydro_p_LakeErie.shp').to_crs("EPSG:4326")
-ontario = gp.read_file('hydro_p_LakeOntario.shp').to_crs("EPSG:4326")
-huron = gp.read_file('hydro_p_LakeHuron.shp').to_crs("EPSG:4326")
+michigan = gp.read_file('./Mapping/hydro_p_LakeMichigan.shp').to_crs("EPSG:4326") 
+superior = gp.read_file('./Mapping/hydro_p_LakeSuperior.shp').to_crs("EPSG:4326")
+erie = gp.read_file('./Mapping/hydro_p_LakeErie.shp').to_crs("EPSG:4326")
+ontario = gp.read_file('./Mapping/hydro_p_LakeOntario.shp').to_crs("EPSG:4326")
+huron = gp.read_file('./Mapping/hydro_p_LakeHuron.shp').to_crs("EPSG:4326")
 
 df = pd.read_csv("GLWQMP_DoD.csv", parse_dates=['SAMPLING_DATE']) #grab the Great Lakes Water Quality Monitoring Project .csv datafile
 
