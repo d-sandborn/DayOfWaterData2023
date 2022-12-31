@@ -1,18 +1,14 @@
-# Day of *Water* Data 2023
+# Day of [*Water*] Data 2023
 
-# WORK IN PROGRESS | NOT FOR DISTRIBUTION
+*Resources for participants in the [University of Minnesota Day of Data 2023](https://sites.google.com/umn.edu/umn-day-of-data/home?pli=1). Created by Daniel E. Sandborn, [Large Lakes Observatory](https://scse.d.umn.edu/large-lakes-observatory), University of Minnesota Duluth.  This material is covered by a GNU General Public License v3.*
 
-*Resources for participants in the University of Minnesota Day of Data 2023.*
-
-*Created by Daniel E. Sandborn, [Large Lakes Observatory](https://scse.d.umn.edu/large-lakes-observatory), University of Minnesota Duluth*
-
-> This material accompanies a talk delivered by the author at the UMN Day of Data event in January 2023.  It relies on Python code to analyze data and create visualizations. To run the code detailed below, you have at least two options: 
+> This material accompanies a talk delivered by the author at the UMN Day of Data event in January 2023.  It relies on Python to analyze data and create visualizations. To run the code in this document, you have at least two options: 
 > 1. Cut-and-paste code snippets into a Python terminal of choice.  This may take the form of Spyder, Jupyter, IDLE, etc. 
-> 2. Download and run the Jupyter Notebook available on github [here](https://github.com/d-sandborn/DayOfWaterData2023#introduction-to-lake-and-ocean-observation-systems).
+> 2. Download and run the Jupyter Notebook available on Github [here](https://github.com/d-sandborn/DayOfWaterData2023#introduction-to-lake-and-ocean-observation-systems).
 
-> Note that you'll need the accessory datafiles, which are available on github [here](https://github.com/d-sandborn/DayOfWaterData2023#introduction-to-lake-and-ocean-observation-systems).
+> Note that you'll need the accessory datafiles, which are available on Github [here](https://github.com/d-sandborn/DayOfWaterData2023#introduction-to-lake-and-ocean-observation-systems).
 
-> If you aren't familiar with Python code, don't worry! This material is designed to be accessible regardless of data science experience.
+> If you aren't familiar with Python code, don't worry! This material is designed to be accessible regardless of coding experience.
 
 ```python
 # We begin by importing packages we'll need.
@@ -30,13 +26,13 @@ from scipy import optimize  # curve-fitting toolkit
 
 ## Introduction to Lake and Ocean Observation Systems
 
-Observers of lakes and oceans have a choice of many instruments and strategies, including moored instruments (buoys), research cruises, drifting buoys, autonomous profilers, and more.  Water body phenomena exist on various scales, with temporal variability between seconds and millennia, and spatial variability between millimeters and thousands of kilometers.  
+Observers of lakes and oceans have a choice of many instruments and strategies, including moored instruments (buoys), research cruises, drifting buoys, autonomous profilers, and more.  Ocean and lake processes exist on various scales, with temporal variability between seconds and millennia, and spatial variability between millimeters and thousands of kilometers.  
 
-To observe a process, you have to match your observation strategy to phenomena of interest. It's no use trying to study global thermohaline ocean circulation with a single buoy, nor in studying climate change with short-term observations. (Bushinsky et al. 2019[^1])
+To observe a process, you have to match your observation strategy to phenomena of interest. It's no use trying to study global thermohaline ocean circulation with a single buoy, nor in studying climate change with short-term observations. 
 
 ![Observation Variability Plot, Bushinsky et al. 2019](.\Images\ObsVarPlot.JPG "Observation Variability Plot, Bushinsky et al. 2019")
 
-Plotting spatial variability on one axis and temporal variability on the other illustrates the overlap among various ocean phenomena and observation techniques.  These overlaps are the zones we target with our instruments.
+Plotting spatial variability on one axis and temporal variability on the other illustrates the overlap among various ocean phenomena and observation techniques (Bushinsky et al. 2019[^1]).  These overlaps are the zones we target with our instruments.
 
 ## Climate, Weather, and the Laurentian Great Lakes
 
@@ -62,11 +58,11 @@ This research, as well as management and policy decisions that can mitigate harm
 
 ## Buoys
 
-Moored instruments (aka buoys) are among the water scientists' most-useful tools for extended observational campaigns, recording data about physical, as well as some chemical and biological parameters.  There more than 1000 moorings deployed on the Great Lakes during the 2022 field season by organizations including universities, federal, state, and provincial agencies, and other local stakeholders. Data from many of these moorings is collected by the [Great Lakes Observing System](https://seagull.glos.org/landing) (GLOS), which is a member of the [Integrated Ocean Observing System](https://ioos.noaa.gov/regions/) (IOOS).
+Moored instruments (aka buoys) are among the water scientists' most valuable tools for extended observational campaigns, recording data about physical, as well as some chemical and biological parameters.  There were more than 100 instrument moorings deployed on the Great Lakes during the 2022 field season by organizations including universities, federal, state, and provincial agencies, and other local stakeholders. Data from many of these moorings is collected by the [Great Lakes Observing System](https://seagull.glos.org/landing) (GLOS), which is a member of the [Integrated Ocean Observing System](https://ioos.noaa.gov/regions/) (IOOS).
 
-Moorings are a treasure-trove of data, informing researchers and managers on very small spatial scales, yet with high-frequency and extended-duration data streams.  Networks of buoys can extend the scope of moored observations, but it's impractical to cover Lake Superior (let alone the global ocean) with enough moorings to observe large-scale trends, especially in spatially-variable systems like large lakes and coasts.  
+Moorings provide a treasure-trove of data, informing researchers and managers on very small spatial scales, yet with high-frequency and extended-duration data streams.  Networks of buoys can extend the scope of moored observations, but it's impractical to cover Lake Superior (let alone the global ocean) with enough moorings to observe large-scale trends, especially in spatially-variable systems like large lakes and coasts.  
 
-Here I'll demonstrate the use of a data access protocol (DAP) to obtain real time data on wave height and temperature from a mooring maintained by the Large Lakes Observatory at the University of Minnesota Duluth.  The mooring is just north of Duluth, near McQuade Harbor.  Wave heights and water temperature are two physical variables particularly suited for moored observations.  They help inform our understanding of lake productivity energy and mass exchange, and -- this one is critical -- the optimal conditions for surfing on the North Shore.
+Here I'll demonstrate the use of a data access protocol (DAP) to obtain data on wave height and temperature from a mooring maintained by the Large Lakes Observatory at the University of Minnesota Duluth.  The mooring is just north of Duluth, near McQuade Harbor.  Wave heights and water temperature are two physical variables particularly suited for moored observations.  They help inform our understanding of lake productivity energy and mass exchange, and -- this one is critical -- the optimal conditions for surfing on the North Shore.
 
 Data access protocols such as [ERDDAP](https://coastwatch.pfeg.noaa.gov/erddap/index.html) (maintained by IOOS in partnership with NOAA) allow us to easily and quickly obtain high-resolution, real-time information from remote locations.  From the data scientist's perspective, however, things aren't so simple as asking a server for information and plotting it up.  These data are subject to instrument and transmission errors, downtime, and weather/climate constraints.  
 
@@ -119,7 +115,7 @@ ax.tick_params(axis='x', labelrotation=45)
 ```
 ![Water Temperatures, McQuade Offshore Mooring, with errors](./Images/WaterTempErrors.png "Water Temperatures, McQuade Offshore Mooring, with errors")
 
-After downloading data from the Great Lakes Observing System via ERDDAP for summer 2022 (the mooring was retrieved in October before wave and ice action destroyed it), an anomaly is evident in the temperature timeseries: many readings of -9999 K. Clearly this is an instrumental error, denoting a voltage out-of-range.  These are easily removed.
+After downloading data from the Great Lakes Observing System via ERDDAP for summer 2022 (the mooring was retrieved in October before wave and ice action could destroy it), an anomaly is evident in the temperature timeseries: many readings of -9999 K. Clearly this is an instrumental error, likely denoting a thermistor voltage out-of-range.  These are easily removed.
 
 ```python
 datacolumns = ['wtmp1 (K)', 'wtmp3 (K)', 'wtmp8 (K)', 'wtmp13 (K)',
@@ -156,9 +152,9 @@ fig.legend(bbox_to_anchor=(1, 0.5), loc="center left")
 ```
 ![Water Temperatures, McQuade Offshore Mooring,](./Images/WaterTemp.png "Water Temperatures, McQuade Offshore Mooring")
 
-The timeseries with errors removed displays the expected seasonal trend: surface temperatures increase through the summer before decreasing in fall.  Spring destratification is also evident near June: at this point the entire water column is the same temperature (and therefore density), such that even a light breeze can circulate water throughout the lake.  Later on, surface waters are significantly warmer (and therefore less dense) which limits exchange of water, matter, and energy betwen the surface and deep water.  
+The timeseries with errors removed displays the expected seasonal trend: surface temperatures increase through the summer before decreasing in fall.  Spring destratification is also evident near June: at this point the entire water column is the same temperature (and therefore density), such that even a light breeze can circulate water throughout the lake.  Later on, surface waters are significantly warmer (and therefore less dense) which limits exchange of water, matter, and energy betwen the surface and depths.  
 
-Gaps are also evident in the timeseries, sometimes lasting days.  Transmission (via a cellular network in this case) can be interrupted or disabled by any number of hardware or software issues.  One last constraint of moored observations has already been hinted at: moorings in the Great Lakes and high latitudes are typically retrieved before winter arrives, with its high seas and crushing ice floes.  Gaps in observations can be significant obstacles to understanding lake and ocean biogeochemistry, such that winter limnology is an active field of research.[^8]
+Gaps are also evident in the timeseries, sometimes lasting days.  Transmission (via a cellular network in this case) can be interrupted or disabled by any number of hardware or software issues.  One last constraint of moored observations has already been hinted at: moorings in the Great Lakes and high latitude oceans are typically retrieved before winter arrives, with its high seas and crushing ice floes.  Gaps in observations can be significant obstacles to understanding lake and ocean biogeochemistry; winter limnology is an active field of research.[^8]
 
 Now we can talk about surfing.  Strong winds from the northeast are common on Lake Superior in the Fall thru Spring.  Over exceedingly long stretches of open water (e.g. over the ocean, or the line from the North Shore to the Slate Islands) the *fetch* of this wind can create surfable waves.  Surfers know to check a series of moorings stretching from Isle Royale down to Duluth to predict wave intensity days to hours in advance. Can we visualize the connection between wave height and its hypothesized driver variables?
 
@@ -229,13 +225,13 @@ ax.set_title('Wave Height vs. Wind Direction (from)')
 ```
 ![Wave Height at McQuade Offshore Mooring vs. Wind Direction](./Images/WaveHeightvsWindDir.png "Wave Height at McQuade Offshore Mooring vs. Wind Direction")
 
-As expected, the largest waves are associated with winds from the northeast, which have the most fetch over Lake Superior.  We now have two probable driver variables, but how much of the variability in wave height do windspeed and wind direction determine?  Several different regression analyses could be deployed to quantify this as, e.g. an R-squared value.  Keep in mind the potential complications of regression against a polar variable (direction); we'll give an example of this later.  
+As expected, the largest waves are associated with winds from the northeast, which have the most fetch over Lake Superior.  We now have two probable driver variables, but how much of the variability in wave height do windspeed and wind direction determine?  Several different regression analyses could be deployed to quantify this as, for example, an R-squared value.  Keep in mind the potential complications of regression against a polar variable (direction); we'll give an example of this later.  
 
 ## Repeat Hydrography
 
-There are some categories of data aren't suitable for measurement by moorings.  Many chemical and biological parameters require analytical techniques that are challenging to automate or else require reagents and supplies that can't be supplied and disposed of in a remote location.  In these cases, research vessels are utilized to travel to stations where water or other samples are retrieved and analyzed by scientists.  Repetition of this process at regular intervals over years or decades constitutes a *repeat hydrography* campaign.  
+Some categories of data aren't suitable for measurement by moorings.  Many chemical and biological parameters require analytical techniques that are challenging to automate or else require reagents and supplies that can't be supplied and disposed of in a remote location.  In these cases, research vessels are utilized to travel to stations where water or other samples are retrieved and analyzed by scientists.  Repetition of this process at regular intervals over years or decades constitutes a *repeat hydrography* campaign.  
 
-The EPA Great Lakes National Program Office has produced such a dataset since the mid 1980s.  This set of chemical and biological measurements of discrete water samples at several dozen stations at various depths is among the most valuable long-term biogeochemical datasets available for the Great Lakes.  Its primary strength is its consistency: each years' data is comprable to all others thanks to standardized operating procedures and quality assurance/quality control (QA/QC).  
+The EPA Great Lakes National Program Office [(GLNPO)](https://www.epa.gov/aboutepa/about-great-lakes-national-program-office-glnpo) has produced such a dataset since the mid 1980s.  This set of chemical and biological measurements of discrete water samples at several dozen stations at various depths is among the most valuable long-term biogeochemical datasets available for the Great Lakes.  Its primary strength is its consistency: each years' data is comprable to all others thanks to standardized operating procedures and quality assurance/quality control (QA/QC).  
 
 I've downloaded a summary of particulate matter analyses through an account on the [EPA GLENDA](https://exchangenetwork.net/data-exchange/glenda/) portal.  We'll analyze it below, beginning with a mapping exercise.
 
@@ -301,17 +297,17 @@ There are many other variables in the provided EPA dataset.  Consider plotting t
 
 ## Research Vessel Underway Systems
 
-Now we move to the third data source, and my personal favorite, underway instrumentation.  We've seen the utility of high-frequency, autonomous, but spatially-limited moorings.  We've demonstrated the flexibility and long-term potential of repeat hydrography transects, despite their high cost in labor an dmaterials.  Now we consider underway instrumentation.  
+Now we move to the third data source: underway instrumentation.  We've seen the utility of high-frequency, autonomous, but spatially-limited moorings.  We've demonstrated the flexibility and long-term potential of repeat hydrography transects, despite their high cost in labor an dmaterials.  Now we consider underway instrumentation as a strategy that combines strengths of both. 
 
-These instruments operate on a vessel autonomously, measuring properties of water wherever the ship happens to travel.  These systems are installed on research vessels like UMD's Blue Heron, as well as "ships of opportunity" like ferries servicing Isle Royale and the Alaska Marine Highway.  Research vessels typically post their underway data to R2R (Rolling Deck to Repository).  I'm going to run a demonstration using data from the R/V Blue Heron, which recently installed a new instrument (SuperCO2, Sunburst Sensors) measuring CO<sub>2</sub> in water.  
+These instruments operate on a vessel autonomously, measuring properties of water wherever the ship happens to travel.  These systems are installed on research vessels like UMD's Blue Heron, as well as "ships of opportunity" like ferries servicing Isle Royale and the Alaska Marine Highway.  Research vessels typically post their underway data to R2R [(Rolling Deck to Repository)](https://www.rvdata.us/).  I'm going to run a demonstration using data from the R/V Blue Heron, which recently installed a new instrument (SuperCO2, Sunburst Sensors) measuring CO<sub>2</sub> in water.  
 
-This greenhouse gas is produced by fossil fuel emissions, and its distribution in water is influenced by temperature, pressue, salinity, photosynthesis, respiration, ice cover, and a host of other factors varying in space and time.  This variability (which is enhanced in inland waters relative to the global ocean) necessitates observations that span space (like repeat hydrography transects) and time (like moorings).
+This greenhouse gas has been accumulating in Earth's atmosphere due to fossil fuel emissions, though a significant fraction (>30%) of fossil carbon is sequestered in the ocean.  Our oceans limit the greenhouse potential of anthropogenic CO<sub>2</sub>, but there are side effects, including ocean acidification. CO<sub>2</sub> in water is influenced by temperature, pressue, salinity, photosynthesis, respiration, ice cover, and a host of other factors varying in space and time. This variability (which is enhanced in inland waters relative to the global ocean) necessitates observations that span space (like repeat hydrography transects) and time (like moorings).
 
 Enter underway data.
 
 ![A screenshot of the Rolling Deck to Repository page for the R/V Blue Heron, with cruise tracks shown for the upper three Laurentian Great Lakes.](./Images/R2R.JPG "A screenshot of the Rolling Deck to Repository page for the R/V Blue Heron, with cruise tracks shown for the upper three Laurentian Great Lakes.")
 
-The heron has visited the upper four Great Lakes since its CO<sub>2</sub> sensors were installed in 2019.  The resulting millions of measurements of CO<sub>2</sub> (along with water physical properties) cover Lake Superior most densely, so we'll restrict our attention there, focusing on a dataset I've assembled and sumarized from several hundred publically-available cruise files.
+The Blue Heron has visited the upper four Great Lakes since its CO<sub>2</sub> sensor was installed in 2019.  The resulting millions of measurements of CO<sub>2</sub> (along with water physical properties) cover Lake Superior most densely, so we'll restrict our attention there, focusing on a dataset I've assembled and sumarized from several hundred publically-available cruise files.
 
 The surface water temperature in Lake Superior is plotted below.  Clearly, SST varies considerably both spatially (within-cruise), seasonally (along the x-axis) and interanually (denoted by color).  This comes as no surprise to astute weather observers: the winter of '21-'22 was particularly cold, so 2022 water temperatures were depressed until later into the summer.  
 
@@ -397,7 +393,7 @@ plt.legend()
 
 ## Wrap-up
 
-I hope this information has been interesting and useful!  While far from a comprehensive treatment of data access and analysis techniques, the examples provided here has the potential to inspire readers, advance data science skills, and increase engagement with the science of one of humanity's most valuable resources: water!
+I hope this demo has been interesting and useful!  While far from a comprehensive treatment of data access and analysis techniques, the examples provided here have the potential to inspire readers, advance data science skills, and increase engagement with the science of one of humanity's most valuable resources: water!
 
 Please contact me with any questions.  I'd love to hear comments, suggestions, project ideas, etc. *sandb425@umn.edu*
 
