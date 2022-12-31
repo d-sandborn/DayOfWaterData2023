@@ -117,7 +117,7 @@ ax.set_ylabel('Water Temperature (K)')
 ax.set_title('Water Temperature Near McQuade Harbor')
 ax.tick_params(axis='x', labelrotation=45)
 ```
-![Water Temperatures, McQuade Offshore Mooring, with errors](WaterTempErrors.png "Water Temperatures, McQuade Offshore Mooring, with errors")
+![Water Temperatures, McQuade Offshore Mooring, with errors](./Images/WaterTempErrors.png "Water Temperatures, McQuade Offshore Mooring, with errors")
 
 After downloading data from the Great Lakes Observing System via ERDDAP for summer 2022 (the mooring was retrieved in October before wave and ice action destroyed it), an anomaly is evident in the temperature timeseries: many readings of -9999 K. Clearly this is an instrumental error, denoting a voltage out-of-range.  These are easily removed.
 
@@ -154,7 +154,7 @@ ax.set_title('Water Temperature Near McQuade Harbor')
 ax.tick_params(axis='x', labelrotation=45)
 fig.legend(bbox_to_anchor=(1, 0.5), loc="center left")
 ```
-![Water Temperatures, McQuade Offshore Mooring,](WaterTemp.png "Water Temperatures, McQuade Offshore Mooring")
+![Water Temperatures, McQuade Offshore Mooring,](./Images/WaterTemp.png "Water Temperatures, McQuade Offshore Mooring")
 
 The timeseries with errors removed displays the expected seasonal trend: surface temperatures increase through the summer before decreasing in fall.  Spring destratification is also evident near June: at this point the entire water column is the same temperature (and therefore density), such that even a light breeze can circulate water throughout the lake.  Later on, surface waters are significantly warmer (and therefore less dense) which limits exchange of water, matter, and energy betwen the surface and deep water.  
 
@@ -263,7 +263,7 @@ ax.set_ylim([41.5, 49])
 ax.set_xlim([-92.1, -76])
 ax.set_title('USEPA Great Lakes Water Quality Monitoring Project Sites')
 ```
-![Locations of USEPA Greast Lakes Water Quality Monitoring Project sampling sites.](GLENDALocations.png "Locations of USEPA Great Lakes Water Quality Monitoring Project sampling stations.")
+![Locations of USEPA Greast Lakes Water Quality Monitoring Project sampling sites.](./Images/GLENDALocations.png "Locations of USEPA Great Lakes Water Quality Monitoring Project sampling stations.")
 
 The great spatial scope of the EPA dataset is evident in this map of the Great Lakes.  Each station is represented as a cluster of observations.  Consider: can the biogeochemistry of such a large lake as Superior be comprehensively understood by measurements at merely three stations far from shore?  
 
@@ -278,7 +278,7 @@ ax.set_ylabel('POC (mg/L)')
 ax.set_xlabel('Station')
 plt.show()
 ```
-![Locations of USEPA Greast Lakes Water Quality Monitoring Project sampling sites.](GLENDABW.png "Comparison of POC at various USEPA Great Lakes Water Quality Monitoring Project stations.")
+![Locations of USEPA Greast Lakes Water Quality Monitoring Project sampling sites.](./Images/GLENDABW.png "Comparison of POC at various USEPA Great Lakes Water Quality Monitoring Project stations.")
 
 We haven't examined how these values change over time.  For that, we'll use a timeseries plot.  Typically measurements are made in early spring (April-May) and late summer (July-August).  This explains the 'sharktooth' behavior in the timeseries, but it complicates interpretation of secular trends.  
 
@@ -295,7 +295,7 @@ ax.set_title('USEPA Great Lakes Water Quality Monitoring Project')
 plt.legend()
 ```
 
-![Locations of USEPA Greast Lakes Water Quality Monitoring Project sampling sites.](GLENDATS.png "Timeseries of POC measurements at USEPA Great Lakes Water Quality Monitoring Project stations.")
+![Locations of USEPA Greast Lakes Water Quality Monitoring Project sampling sites.](./Images/GLENDATS.png "Timeseries of POC measurements at USEPA Great Lakes Water Quality Monitoring Project stations.")
 
 There are many other variables in the provided EPA dataset.  Consider plotting them up and seeing if trends can be demonstrated.
 
@@ -307,7 +307,7 @@ These instruments operate on a vessel autonomously, measuring properties of wate
 
 This greenhouse gas is produced by fossil fuel emissions, and its distribution in water is influenced by temperature, pressue, salinity, photosynthesis, respiration, ice cover, and a host of other factors varying in space and time.  This variability (which is enhanced in inland waters relative to the global ocean) necessitates observations that span space (like repeat hydrography transects) and time (like moorings); enter underway data.
 
-![A screenshot of the Rolling Deck to Repository page for the R/V Blue Heron, with cruise tracks shown for the upper three Laurentian Great Lakes.](R2R.JPG "A screenshot of the Rolling Deck to Repository page for the R/V Blue Heron, with cruise tracks shown for the upper three Laurentian Great Lakes.")
+![A screenshot of the Rolling Deck to Repository page for the R/V Blue Heron, with cruise tracks shown for the upper three Laurentian Great Lakes.](./Images/R2R.JPG "A screenshot of the Rolling Deck to Repository page for the R/V Blue Heron, with cruise tracks shown for the upper three Laurentian Great Lakes.")
 
 The heron has visited the upper four Great Lakes since its CO<sub>2</sub> sensors were installed in 2019.  The resulting millions of measurements of CO<sub>2</sub> (along with water physical properties) cover Lake Superior most densely, so we'll restrict our attention there, focusing on a dataset I've assembled and sumarized from several hundred publically-available cruise files.
 
@@ -335,7 +335,7 @@ ax.set_xlabel('Day of Year')
 ax.set_title('USEPA Great Lakes Water Quality Monitoring Project')
 plt.legend()
 ```
-![Surface water temperatures measured by the R/V Blue Heron underway system on Lake Superior, 2019-2022](BHUWTemp.png "Surface wter temperatures measured by the R/V Blue Heron underway system on Lake Superior, 2019-2022.")
+![Surface water temperatures measured by the R/V Blue Heron underway system on Lake Superior, 2019-2022](./Images/BHUWTemp.png "Surface wter temperatures measured by the R/V Blue Heron underway system on Lake Superior, 2019-2022.")
 
 This affects more than just surfing and shipping conditions (each of which, of course, are highly important in Duluth!)  Cold water absorbs more CO<sub>2</sub> than warm water.  It's reasonable to hypothesize that there could be differences in how Lake Superior 'breathes' CO<sub>2</sub> among years.
 
@@ -391,7 +391,7 @@ ax.set_ylim([200, 600])
 ax.set_title('R/V Blue Heron Underway 19-22, Superior Deep Open Water')
 plt.legend()
 ```
-![Surface water carbon dioxide partial pressures measured by the R/V Blue Heron underway system on Lake Superior, 2019-2022](BHUWCO2.png "Surface water carbon dioxide partial pressures measured by the R/V Blue Heron underway system on Lake Superior, 2019-2022.")
+![Surface water carbon dioxide partial pressures measured by the R/V Blue Heron underway system on Lake Superior, 2019-2022](./Images/BHUWCO2.png "Surface water carbon dioxide partial pressures measured by the R/V Blue Heron underway system on Lake Superior, 2019-2022.")
 
 ## Wrap-up
 
