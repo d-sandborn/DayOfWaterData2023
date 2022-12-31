@@ -34,7 +34,7 @@ Observers of lakes and oceans have a choice of many instruments and strategies, 
 
 To observe a process, you have to match your observation strategy to phenomena of interest. It's no use trying to study global thermohaline ocean circulation with a single buoy, nor in studying climate change with short-term observations. (Bushinsky et al. 2019[^1])
 
-![Observation Variability Plot, Bushinsky et al. 2019](./Images/ObsVarPlot.JPG "Observation Variability Plot, Bushinsky et al. 2019")
+![Observation Variability Plot, Bushinsky et al. 2019](.\Images\ObsVarPlot.JPG "Observation Variability Plot, Bushinsky et al. 2019")
 
 Plotting spatial variability on one axis and temporal variability on the other illustrates the overlap among various ocean phenomena and observation techniques.  These overlaps are the zones we target with our instruments.
 
