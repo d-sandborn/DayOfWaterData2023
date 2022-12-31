@@ -223,7 +223,6 @@ ax.set_xticklabels(['N', 'NE', 'W', 'SW', 'S', 'SE', 'E', 'NE'])
 ax.set_yticklabels(['', '', 'MEH', 'OKAY', 'GNARLY', 'RADICAL', 'SURF\'S UP!'])
 ax.set_title('Wave Height vs. Wind Direction (from)')
 ```
-
 As expected, the largest waves are associated with winds from the northeast, which have the most fetch over Lake Superior.  We now have two probable driver variables, but how much of the variability in wave height do windspeed and wind direction determine?  Several different regression analyses could be deployed to quantify this as, e.g. an R-squared value.  Keep in mind the potential difficulties associated with a polar variable (direction)!
 
 ## Repeat Hydrography
