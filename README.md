@@ -1,4 +1,4 @@
-# Day of [*Water*] Data 2023
+# Day of *[Water]* Data 2023
 
 *Resources for participants in the [University of Minnesota Day of Data 2023](https://sites.google.com/umn.edu/umn-day-of-data/home?pli=1). Created by Daniel E. Sandborn, [Large Lakes Observatory](https://scse.d.umn.edu/large-lakes-observatory), University of Minnesota Duluth.  This material is covered by a GNU General Public License v3.*
 
@@ -67,15 +67,15 @@ Here I'll demonstrate the use of a data access protocol (DAP) to obtain data on 
 Data access protocols such as [ERDDAP](https://coastwatch.pfeg.noaa.gov/erddap/index.html) (maintained by IOOS in partnership with NOAA) allow us to easily and quickly obtain high-resolution, real-time information from remote locations.  From the data scientist's perspective, however, things aren't so simple as asking a server for information and plotting it up.  These data are subject to instrument and transmission errors, downtime, and weather/climate constraints.  
 
 ```python
-e = ERDDAP( #initialize the ERDDAP interface with server details
+e = ERDDAP(
     server="https://seagull-erddap.glos.org/erddap",
     protocol="tabledap",
     response="csv",
 )
 
-e.dataset_id = "obs_45" #provide the mooring identifier, found at the GLOS Seagull website.
+e.dataset_id = "obs_45"
 
-e.variables = [ #provide a list of variables to download
+e.variables = [
     "time",
     "wtmp1",
     "wtmp3",
@@ -89,20 +89,18 @@ e.variables = [ #provide a list of variables to download
     "wtmp43"
 ]
 
-e.constraints = { #narrow it down to the 2022 field season
+e.constraints = {
     "time>=": "2022-05-23T00:00:00Z",
     "time<=": "2022-10-7T00:00:00Z",
 }
 
-df = e.to_pandas( #download the data into a Pandas dataframe
+df = e.to_pandas(
     #index_col="time (UTC)",
-    parse_dates=["time (UTC)"], #define this column as a datetime object
+    parse_dates=["time (UTC)"],
 ).dropna()
 df.time = df.loc[:, "time (UTC)"]
 
-# I use matplotlib for creating graphs here, but many others are available that with a higher-level (and more concise) syntax.
-
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(8,6))
 ax.plot(df.time, df.loc[:, "wtmp1 (K)"])
 ax2 = ax.twinx()
 mn, mx = ax.get_ylim()
@@ -112,6 +110,7 @@ ax.set_xlabel('Date')
 ax.set_ylabel('Water Temperature (K)')
 ax.set_title('Water Temperature Near McQuade Harbor')
 ax.tick_params(axis='x', labelrotation=45)
+ax.annotate('Plot: Daniel E. Sandborn 2023', xy=(1, 0),xycoords='axes fraction', fontsize=7, horizontalalignment='right', verticalalignment='bottom')
 ```
 ![Water Temperatures, McQuade Offshore Mooring, with errors](./Images/WaterTempErrors.png "Water Temperatures, McQuade Offshore Mooring, with errors")
 
@@ -191,12 +190,13 @@ for i in df.index:
         if df.loc[i, j] < 0:
             df.loc[i, j] = np.nan
 
-fig, ax = plt.subplots(figsize = (10,3))
+fig, ax = plt.subplots(figsize = (10,4))
 ax.plot(df.time, df.loc[:, "wvhgt (m)"], c='blue')
 ax.set_xlabel('Date')
 ax.set_ylabel('Wave Height (m)')
 ax.set_title('Wave Heights Near McQuade Harbor')
 ax.tick_params(axis='x', labelrotation=45)
+ax.annotate('Plot: Daniel E. Sandborn 2023', xy=(1, 0),xycoords='axes fraction', fontsize=7, horizontalalignment='right', verticalalignment='bottom')
 ```
 ![Wave Height Timeseries, McQuade Offshore Mooring](./Images/WaveHeightTimeseries.png "Wave Height Timeseries, McQuade Offshore Mooring")
 
