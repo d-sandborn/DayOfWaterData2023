@@ -344,6 +344,12 @@ Now we separate the sinusoidal regression of 2022 from the others.  It appears t
 ```python
 def test_func(x, a, b, c, d): #define a generalized sinusoidal equation
     return a * np.sin(b * (x-c)/365*2*np.pi)+d
+    
+def abline(slope, intercept, **kwargs): #this helps us plot lines quickly
+    axes = plt.gca()
+    x_vals = np.array(axes.get_xlim())
+    y_vals = intercept + slope * x_vals
+    plt.plot(x_vals, y_vals, ':', **kwargs)
 
 # Open Water
 x_data = df.loc[df['Depthcode'] == 'Deep'].dropna(subset=['pCO2'])['DOY'] #pick out the independent variable
