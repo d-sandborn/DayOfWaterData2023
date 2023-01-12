@@ -219,7 +219,7 @@ ax.scatter(df.loc[:, "wdir1 (degree)"]/360*2*np.pi, df.loc[:, "wvhgt (m)"], c='b
 ax.set_theta_zero_location('N')
 ax.set_theta_direction(-1)
 ax.set_rlabel_position(180)
-ax.set_xticklabels(['N', 'NE', 'W', 'SW', 'S', 'SE', 'E', 'NE'])
+ax.set_xticklabels(['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'])
 ax.set_yticklabels(['', '', 'MEH', 'OKAY', 'GNARLY', 'RADICAL', 'SURF\'S UP!'])
 ax.set_title('Wave Height vs. Wind Direction (from)')
 ```
